@@ -3,8 +3,9 @@
 //
 
 #pragma once
-
-
+#include "CWndINC.h"
+#include "CWndINJ.h"
+#define MAX_PAGES 10
 // CGH3Dlg 对话框
 class CGH3Dlg : public CDialogEx
 {
@@ -31,4 +32,16 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+
+		
+public:
+	CTabCtrl mTab;
+	CWndINC PC;
+	CWndINJ PJ;
+
+	int CurPage = 0;
+	CDialogEx* Page[MAX_PAGES];
+	bool InstallPage(CDialogEx* wnd, int IDD_Wnd, CString&& _Name, bool isShow = false);
+	afx_msg void OnTcnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult);
+//	afx_msg void OnBnClickedOk();
 };

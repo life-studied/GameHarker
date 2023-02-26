@@ -50,7 +50,7 @@ END_MESSAGE_MAP()
 
 
 
-CGH3Dlg::CGH3Dlg(CWnd* pParent /*=nullptr*/)
+CGH3Dlg::CGH3Dlg(CWnd* pParent /*=nullptr*/) 
 	: CDialogEx(IDD_GH3_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
@@ -59,12 +59,15 @@ CGH3Dlg::CGH3Dlg(CWnd* pParent /*=nullptr*/)
 void CGH3Dlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_TAB1, mTab);
 }
 
 BEGIN_MESSAGE_MAP(CGH3Dlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_NOTIFY(TCN_SELCHANGE, IDC_TAB1, &CGH3Dlg::OnTcnSelchangeTab1)
+//	ON_BN_CLICKED(IDOK, &CGH3Dlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -100,8 +103,39 @@ BOOL CGH3Dlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
-
+	InstallPage(&PC, IDD_PAGE_0, L"注入", true);
+	InstallPage(&PJ, IDD_PAGE_1, L"注入检测");
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
+}
+
+
+bool CGH3Dlg::InstallPage(CDialogEx* wnd, int IDD_Wnd, CString&& _Name, bool isShow)
+{
+	if (CurPage >= MAX_PAGES) return false;
+
+	mTab.InsertItem(CurPage, _Name);	//在选项卡中插入对应的标签和位置	
+	Page[CurPage] = wnd;
+	Page[CurPage]->Create(IDD_Wnd);		//变量绑定控件
+	Page[CurPage]->SetParent(this);		//设置当前对话框为父类
+	Page[CurPage]->ShowWindow(isShow);		//展示控件的对话框
+
+
+	//此时出现问题：出现的对话框窗体与底层的窗体不匹配
+	//解决：获取底层窗体的大小，并赋值给上层的对话框
+
+	CRect rect;
+	mTab.GetClientRect(&rect);		//获取mTab的rect信息
+
+	rect.top += 45;							//微调
+	rect.left += 20;
+	rect.right += 5;
+	rect.bottom += 5;
+
+	Page[CurPage]->MoveWindow(&rect);				//赋值
+
+
+	CurPage++;
+	return true;
 }
 
 void CGH3Dlg::OnSysCommand(UINT nID, LPARAM lParam)
@@ -153,3 +187,24 @@ HCURSOR CGH3Dlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CGH3Dlg::OnTcnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	// TODO: 在此添加控件通知处理程序代码
+	*pResult = 0;
+
+	int n = mTab.GetCurSel();		//获取当前选项数字
+
+	for (int i = 0; i < CurPage; i++)
+	{
+		Page[i]->ShowWindow(i == n);	//展示当前选项卡，隐藏其余选项卡
+	}
+}
+
+
+//void CGH3Dlg::OnBnClickedOk()
+//{
+	// TODO: 在此添加控件通知处理程序代码
+//	CDialogEx::OnOK();
+//}

@@ -183,6 +183,8 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CWndINC.h" />
+    <ClInclude Include="CWndINJ.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GH3.h" />
     <ClInclude Include="GH3Dlg.h" />
@@ -191,6 +193,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CWndINC.cpp" />
+    <ClCompile Include="CWndINJ.cpp" />
     <ClCompile Include="GH3.cpp" />
     <ClCompile Include="GH3Dlg.cpp" />
     <ClCompile Include="pch.cpp">
