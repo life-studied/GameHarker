@@ -21,6 +21,12 @@ CWndINC::~CWndINC()
 {
 }
 
+BOOL CWndINC::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();		
+	return TRUE;
+}
+
 void CWndINC::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);

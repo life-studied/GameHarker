@@ -18,6 +18,10 @@ public:
 #endif
 
 protected:
+	//消息函数
+	virtual BOOL OnInitDialog();
+
+
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 	DECLARE_MESSAGE_MAP()
