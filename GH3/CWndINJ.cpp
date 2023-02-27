@@ -53,6 +53,7 @@ void CWndINJ::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CWndINJ, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CWndINJ::OnBnClickedButton1)
+//	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST1, &CWndINJ::OnLvnItemchangedList1)
 END_MESSAGE_MAP()
 
 
@@ -66,3 +67,11 @@ void CWndINJ::OnBnClickedButton1()
 	ExeLst.InsertItem(0, L"DNF");
 	ExeLst.SetItemText(0, 1, L"dlls.dll");
 }
+
+
+//void CWndINJ::OnLvnItemchangedList1(NMHDR* pNMHDR, LRESULT* pResult)
+//{
+//	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+//	*pResult = 0;
+//}

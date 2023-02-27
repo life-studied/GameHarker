@@ -1,5 +1,4 @@
 ﻿#pragma once
-
 #include "afxdialogex.h"
 
 
@@ -29,4 +28,5 @@ public:
 	// 程序List
 	CListCtrl ExeLst;
 	afx_msg void OnBnClickedButton1();
+//	afx_msg void OnLvnItemchangedList1(NMHDR* pNMHDR, LRESULT* pResult);
 };
