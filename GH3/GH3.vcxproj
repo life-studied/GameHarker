@@ -118,6 +118,8 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+      <UACUIAccess>false</UACUIAccess>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -183,6 +185,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CWndAddGame.h" />
     <ClInclude Include="CWndINC.h" />
     <ClInclude Include="CWndINJ.h" />
     <ClInclude Include="framework.h" />
@@ -193,6 +196,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CWndAddGame.cpp" />
     <ClCompile Include="CWndINC.cpp" />
     <ClCompile Include="CWndINJ.cpp" />
     <ClCompile Include="GH3.cpp" />

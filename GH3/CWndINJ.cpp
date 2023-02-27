@@ -13,6 +13,9 @@ IMPLEMENT_DYNAMIC(CWndINJ, CDialogEx)
 
 CWndINJ::CWndINJ(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_PAGE_0, pParent)
+	, B_INJECT(FALSE)
+	, B_PAUSE(FALSE)
+	, B_DEBUG(FALSE)
 {
 
 }
@@ -48,6 +51,9 @@ void CWndINJ::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST1, ExeLst);
+	DDX_Check(pDX, IDC_CHECK1, B_INJECT);
+	DDX_Check(pDX, IDC_CHECK2, B_PAUSE);
+	DDX_Check(pDX, IDC_CHECK3, B_DEBUG);
 }
 
 
@@ -62,10 +68,37 @@ END_MESSAGE_MAP()
 
 void CWndINJ::OnBnClickedButton1()
 {
+
+	wndAddGame.DoModal();
+
+
+
 	// TODO: 在此添加控件通知处理程序代码
 	//test Lst
-	ExeLst.InsertItem(0, L"DNF");
-	ExeLst.SetItemText(0, 1, L"dlls.dll");
+	/*ExeLst.InsertItem(0, L"DNF");
+	ExeLst.SetItemText(0, 1, L"dlls.dll");*/
+
+
+	//STARTUPINFO si{};					//获取进程信息的结构体
+	//si.cb = sizeof(si);					//必须要 no why
+	//PROCESS_INFORMATION prinfo{};		//获取进程信息的结构体
+	//
+	//CreateProcess(						//固定格式
+	//	L"D:\\文件合集\\game_hark\\JX2\\Sword2.exe",
+	//	NULL,
+	//	NULL, NULL, FALSE,
+	//	CREATE_SUSPENDED,
+	//	NULL,
+	//	L"D:\\文件合集\\game_hark\\JX2\\",
+	//	&si,
+	//	&prinfo
+	//);
+	////此时进程暂停（管理员启动），在恢复之前做注入
+
+
+	////恢复线程
+	//ResumeThread(prinfo.hThread);
+
 }
 
 

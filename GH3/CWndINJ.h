@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "afxdialogex.h"
-
+#include "CWndAddGame.h"
 
 // CWndINJ 对话框
 
@@ -28,5 +28,14 @@ public:
 	// 程序List
 	CListCtrl ExeLst;
 	afx_msg void OnBnClickedButton1();
-//	afx_msg void OnLvnItemchangedList1(NMHDR* pNMHDR, LRESULT* pResult);
+	// 注入
+// 注入
+	BOOL B_INJECT;
+	// 暂停
+	BOOL B_PAUSE;
+	// 调试
+	BOOL B_DEBUG;
+
+	//
+	CWndAddGame wndAddGame;
 };
