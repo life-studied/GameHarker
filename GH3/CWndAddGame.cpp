@@ -3,6 +3,7 @@
 
 #include "pch.h"
 #include "GH3.h"
+#include "CWndINJ.h"
 #include "afxdialogex.h"
 #include "CWndAddGame.h"
 
@@ -41,6 +42,7 @@ BEGIN_MESSAGE_MAP(CWndAddGame, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CWndAddGame::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, &CWndAddGame::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON4, &CWndAddGame::OnBnClickedButton4)
+	ON_BN_CLICKED(IDC_BUTTON3, &CWndAddGame::OnBnClickedButton3)
 END_MESSAGE_MAP()
 
 
@@ -91,5 +93,20 @@ void CWndAddGame::OnBnClickedButton2()
 void CWndAddGame::OnBnClickedButton4()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	CDialog::OnCancel();
+}
+
+void CWndAddGame::Init(void* _father)
+{
+	father = _father;
+}
+
+
+void CWndAddGame::OnBnClickedButton3()
+{
+	//保存数据
+	CWndINJ* p = (CWndINJ*)father;
+	UpdateData(TRUE);
+	p->AddGame(GameName, GameFullPath, GamePath, GameCmds, DllPath);
 	CDialog::OnCancel();
 }

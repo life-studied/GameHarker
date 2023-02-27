@@ -44,6 +44,7 @@ BOOL CWndINJ::OnInitDialog()
 	ExeLst.InsertColumn(0, L"名称", 0, 200);		//column:0	像素width:200
 	ExeLst.InsertColumn(1, L"模块", 0, 400);
 
+	
 	return TRUE;
 }
 
@@ -68,7 +69,7 @@ END_MESSAGE_MAP()
 
 void CWndINJ::OnBnClickedButton1()
 {
-
+	wndAddGame.Init(this);
 	wndAddGame.DoModal();
 
 
@@ -99,6 +100,39 @@ void CWndINJ::OnBnClickedButton1()
 	////恢复线程
 	//ResumeThread(prinfo.hThread);
 
+}
+
+void CWndINJ::Init(CString& _AppPath)
+{
+	AppPath = _AppPath;
+	GamesIni.Format(L"%s\\Set\\Games.ini",AppPath);
+}
+
+void CWndINJ::AddGame(CString& _GameName, CString& _GameExe, CString& _GamePath, CString& _GameCmds, CString& _dlls)
+{
+	//AfxMessageBox(_GameName);
+	//从配置文件中读取、
+	int count = GetPrivateProfileIntW(
+		L"main",		//索引
+		L"count",		//对应的键
+		0,				//读取失败的值
+		GamesIni		//读取的文件名
+	);
+	count++;
+
+	CString key;
+	key.Format(L"count_%d", count);
+
+	//写入到配置文件中，与上述一致
+	WritePrivateProfileStringW(key, L"GameName", _GameName, GamesIni);
+	WritePrivateProfileStringW(key, L"GameExe", _GameExe, GamesIni);
+	WritePrivateProfileStringW(key, L"GamePath", _GamePath, GamesIni);
+	WritePrivateProfileStringW(key, L"GameCmds", _GameCmds, GamesIni);
+	WritePrivateProfileStringW(key, L"GameDlls", _dlls, GamesIni);
+
+	CString wCount;
+	wCount.Format(L"%d", count);
+	WritePrivateProfileStringW(L"main", L"count", wCount, GamesIni);
 }
 
 

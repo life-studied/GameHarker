@@ -44,4 +44,6 @@ public:
 	bool InstallPage(CDialogEx* wnd, int IDD_Wnd, CString&& _Name, bool isShow = false);
 	afx_msg void OnTcnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult);
 //	afx_msg void OnBnClickedOk();
+	CString wAppPath;
+	
 };

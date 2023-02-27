@@ -77,6 +77,20 @@ BOOL CGH3Dlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
+
+	TCHAR FileModule[0x100]{};
+	//获取当前exe路径
+	GetModuleFileName(
+		NULL,		//设置为NULL获取的是exe路径，否则获取的是模块路径
+		FileModule,
+		0x100
+	);		
+	int i;
+	for (i = 0x100 - 1; FileModule[i] != L'\\'; i--);
+
+	FileModule[i] = 0;
+	wAppPath.Format(L"%s", FileModule);
+	//AfxMessageBox(FileModule);
 	// 将“关于...”菜单项添加到系统菜单中。
 
 	// IDM_ABOUTBOX 必须在系统命令范围内。
@@ -106,6 +120,9 @@ BOOL CGH3Dlg::OnInitDialog()
 	InstallPage(&PJ, IDD_PAGE_0, L"注入", true);
 	InstallPage(&PC, IDD_PAGE_1, L"注入检测");
 
+
+	//初始化
+	PJ.Init(wAppPath);
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 

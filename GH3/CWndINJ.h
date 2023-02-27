@@ -38,4 +38,13 @@ public:
 
 	//
 	CWndAddGame wndAddGame;
+	CString AppPath;
+	CString GamesIni;
+	void Init(CString& _AppPath);
+	void AddGame(
+		CString& _GameName,
+		CString& _GameExe,
+		CString& _GamePath,
+		CString& _GameCmds,
+		CString& _dlls);
 };

@@ -30,4 +30,9 @@ public:
 	CString DllPath;
 	afx_msg void OnBnClickedButton2();
 	afx_msg void OnBnClickedButton4();
+
+public:
+	void* father;
+	void Init(void* _father);
+	afx_msg void OnBnClickedButton3();
 };
