@@ -46,4 +46,5 @@ public:
 //	afx_msg void OnBnClickedOk();
 	CString wAppPath;
 	
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 };

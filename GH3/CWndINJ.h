@@ -47,4 +47,6 @@ public:
 		CString& _GamePath,
 		CString& _GameCmds,
 		CString& _dlls);
+
+	void LoadGames();		//从配置文件加载游戏到列表
 };

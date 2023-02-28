@@ -68,6 +68,7 @@ BEGIN_MESSAGE_MAP(CGH3Dlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_NOTIFY(TCN_SELCHANGE, IDC_TAB1, &CGH3Dlg::OnTcnSelchangeTab1)
 //	ON_BN_CLICKED(IDOK, &CGH3Dlg::OnBnClickedOk)
+ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 
@@ -226,3 +227,28 @@ void CGH3Dlg::OnTcnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult)
 	// TODO: 在此添加控件通知处理程序代码
 //	CDialogEx::OnOK();
 //}
+
+
+void CGH3Dlg::OnSize(UINT nType, int cx, int cy)
+{
+	CDialogEx::OnSize(nType, cx, cy);
+	//nType：对应不同的操作类型
+	// 0：拖动边框
+	// 1：最小化
+	// 2：最大化
+	if (nType == 1)	return;
+	// TODO: 在此处添加消息处理程序代码
+
+	CRect rect;
+	mTab.GetClientRect(&rect);		//获取mTab的rect信息
+
+	rect.top += 45;							//微调
+	rect.left += 20;
+	rect.right += 5;
+	rect.bottom += 5;
+	for (int i = 0; i < CurPage; i++)
+	{
+		if(Page[i]) Page[i]->MoveWindow(&rect);				//调整大小
+	}
+	
+}
