@@ -7,6 +7,11 @@
 #include "CWndINJ.h"
 #include "afxdialogex.h"
 
+#include <fstream>
+
+#include <ImageHlp.h>
+#pragma comment(lib,"imagehlp.lib")
+
 // CWndINJ 对话框
 
 IMPLEMENT_DYNAMIC(CWndINJ, CDialogEx)
@@ -63,6 +68,7 @@ void CWndINJ::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CWndINJ, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CWndINJ::OnBnClickedButton1)
 //	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST1, &CWndINJ::OnLvnItemchangedList1)
+ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &CWndINJ::OnNMDblclkList1)
 END_MESSAGE_MAP()
 
 
@@ -98,6 +104,7 @@ void CWndINJ::OnBnClickedButton1()
 	//);
 	////此时进程暂停（管理员启动），在恢复之前做注入
 
+	
 
 	////恢复线程
 	//ResumeThread(prinfo.hThread);
@@ -227,3 +234,74 @@ void CWndINJ::LoadGames()
 	// TODO: 在此添加控件通知处理程序代码
 //	*pResult = 0;
 //}
+
+
+
+void* _imageload(wchar_t* filename)
+{
+	std::ifstream streamReader(filename, std::ios::binary);
+	streamReader.seekg(0, std::ios::end);		//游标移到文件结尾
+	unsigned filesize = streamReader.tellg();			//获取游标当前位置 - 文件开始位置，此处为文件大小
+	char* _data = new char[filesize];					//分配内存
+	streamReader.seekg(0, std::ios::beg);		//跳转回开始
+	streamReader.read(_data, filesize);		//读取文件
+	streamReader.close();
+	return _data;
+}
+
+void _unloadimage(void* _data)
+{
+	delete[] _data;
+}
+
+void CWndINJ::OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	*pResult = 0;
+	//AfxMessageBox(L"DBClick");
+	int index = pNMItemActivate->iItem;		//该变量为-1是没有选中，否则是选中的序号
+	if (index == -1) return;
+
+	CString GamePath = ExeLst.GetItemText(index, 2);
+	CString GameExe = ExeLst.GetItemText(index, 1);
+	CString GameCmds = ExeLst.GetItemText(index, 3);
+	CString GameDlls = ExeLst.GetItemText(index, 4);
+
+	STARTUPINFO si{};					//获取进程信息的结构体
+	si.cb = sizeof(si);					//必须要 no why
+	PROCESS_INFORMATION prinfo{};		//获取进程信息的结构体
+	
+	CreateProcess(						//固定格式
+		GameExe,
+		GameCmds.GetBuffer(),
+		NULL, NULL, TRUE,
+		CREATE_SUSPENDED,
+		NULL,
+		GamePath,
+		&si,
+		&prinfo
+	);
+	////此时进程暂停（管理员启动），在恢复之前做注入
+
+	//CStringA GameExeA;				//单字节的CString，存储PE文件路径
+	//GameExeA = GameExe;				//将多字节的CString做类型转换
+	//PLOADED_IMAGE image = ImageLoad(GameExeA, NULL);		//调用API,同时将文件加载到image指向的缓冲区
+	//DWORD dEntryPoint = image->FileHeader->OptionalHeader.AddressOfEntryPoint;
+	//ImageUnload(image);				//释放缓冲区
+
+	void* image = _imageload(GameExe.GetBuffer());
+
+	IMAGE_DOS_HEADER* dosHeader = (IMAGE_DOS_HEADER*)image;
+	unsigned PEAddress = dosHeader->e_lfanew + unsigned(image);
+
+	IMAGE_NT_HEADERS* ntHeader = (IMAGE_NT_HEADERS*)PEAddress;
+	DWORD dEntryPoint = ntHeader->OptionalHeader.AddressOfEntryPoint;
+
+	CString wtxt;
+	wtxt.Format(L"%d", wtxt);
+	AfxMessageBox(wtxt);
+	_unloadimage(image);
+	////恢复线程
+	ResumeThread(prinfo.hThread);
+}

@@ -49,4 +49,5 @@ public:
 		CString& _dlls);
 
 	void LoadGames();		//从配置文件加载游戏到列表
+	afx_msg void OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult);
 };
