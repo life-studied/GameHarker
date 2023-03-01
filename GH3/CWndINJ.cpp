@@ -271,7 +271,8 @@ void CWndINJ::OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
 
 	PROCESS_INFORMATION prinfo{};		//获取进程信息的结构体
 	m_INJECT.StartProcess(GameExe, GamePath, GameCmds.GetBuffer(), &prinfo);
-
+	_REMOTE_DATA _data{};
+	m_INJECT.CodeRemoteData(_data);
 	ResumeThread(prinfo.hThread);	
 	/*
 	STARTUPINFO si{};					//获取进程信息的结构体

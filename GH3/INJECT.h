@@ -1,4 +1,12 @@
 #pragma once
+
+typedef unsigned int (WINAPI* _LoadLibrary)(wchar_t* dllName);		//指向LoadLibrary的函数指针
+typedef struct _REMOTE_DATA 
+{
+	wchar_t dllName[0xff];		//dll路径
+	_LoadLibrary f_LoadLibrary;
+}* PREMOTE_DATA;
+
 class INJECT
 {
 public:
@@ -15,6 +23,7 @@ public:
 
 public:
 	//分配远程空间内存
-	BOOL CreateRemoteData(HANDLE hProcess);
+	BOOL CreateRemoteData(HANDLE hProcess, const wchar_t* dllName);
+	void CodeRemoteData(PREMOTE_DATA _data, const wchar_t* dllName);		//编码远程参数
 };
 

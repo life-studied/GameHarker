@@ -4,7 +4,9 @@
 
 void _stdcall INJECTCode()
 {
-	LoadLibrary(L"D:\\coding_workspace\\vs2022\\GH3\\Release\\Dlls.dll");
+	unsigned address = 0xCCCCCCCC;
+	PREMOTE_DATA p = (PREMOTE_DATA)address;
+	p->f_LoadLibrary(p->dllName);
 }
 
 BOOL INJECT::StartProcess(const wchar_t* GameExe, const wchar_t* GamePath, wchar_t* GameCmds, PROCESS_INFORMATION* LPinfo)
@@ -43,13 +45,32 @@ DWORD INJECT::GetEntryPoint(const wchar_t* filename)
 	return dEntryPoint;
 }
 
-BOOL INJECT::CreateRemoteData(HANDLE hProcess)
+BOOL INJECT::CreateRemoteData(HANDLE hProcess, const wchar_t* dllName)
 {
 	LPVOID adrRemote = VirtualAllocEx(hProcess, 0, 0x3000, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 	//写入远程代码
 	SIZE_T lwt;
+	LPVOID adrRemoteData = LPVOID((unsigned)adrRemote + 0x2000);
+	_REMOTE_DATA remoteData{};
+
 	WriteProcessMemory(hProcess, adrRemote, INJECTCode, 0x200, &lwt);
+
+	CodeRemoteData(&remoteData, dllName);
+	WriteProcessMemory(hProcess, adrRemoteData, &remoteData, sizeof(remoteData), &lwt);
 	return 0;
+}
+
+void INJECT::CodeRemoteData(PREMOTE_DATA _data, const wchar_t* dllName)
+{
+	short length{};
+	for (length = 0; dllName[length]; length++);
+
+	HMODULE hKernel = LoadLibrary(_T("kernel32.dll"));
+	_data->f_LoadLibrary = (_LoadLibrary)GetProcAddress(hKernel, "LoadLibraryW");
+	memcpy(_data->dllName, dllName, (length + 1) * 2);		//wchar_t 2字节
+	/*CString wTxt;
+	wTxt.Format(L"%X", _data->f_LoadLibrary);
+	AfxMessageBox(wTxt);*/
 }
 
 void* INJECT::ImageLoad(const wchar_t* filename)
