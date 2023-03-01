@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "afxdialogex.h"
 #include "CWndAddGame.h"
-
+#include "INJECT.h"
 // CWndINJ 对话框
 
 class CWndINJ : public CDialogEx
@@ -18,6 +18,7 @@ public:
 #endif
 
 protected:
+	INJECT m_INJECT;
 	//消息函数
 	virtual BOOL OnInitDialog();
 

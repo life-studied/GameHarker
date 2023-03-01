@@ -268,9 +268,15 @@ void CWndINJ::OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
 	CString GameCmds = ExeLst.GetItemText(index, 3);
 	CString GameDlls = ExeLst.GetItemText(index, 4);
 
+
+	PROCESS_INFORMATION prinfo{};		//获取进程信息的结构体
+	m_INJECT.StartProcess(GameExe, GamePath, GameCmds.GetBuffer(), &prinfo);
+
+	ResumeThread(prinfo.hThread);	
+	/*
 	STARTUPINFO si{};					//获取进程信息的结构体
 	si.cb = sizeof(si);					//必须要 no why
-	PROCESS_INFORMATION prinfo{};		//获取进程信息的结构体
+	
 	
 	CreateProcess(						//固定格式
 		GameExe,
@@ -298,10 +304,29 @@ void CWndINJ::OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
 	IMAGE_NT_HEADERS* ntHeader = (IMAGE_NT_HEADERS*)PEAddress;
 	DWORD dEntryPoint = ntHeader->OptionalHeader.AddressOfEntryPoint;
 
-	CString wtxt;
-	wtxt.Format(L"%d", wtxt);
-	AfxMessageBox(wtxt);
+	// //print, test result if right (=0x42DB50) 
+	//CString wtxt;
+	//wtxt.Format(L"%X", dEntryPoint);
+	//AfxMessageBox(wtxt);
 	_unloadimage(image);
+	*/
+
+	//开始注入
+	//INJECTCode();		//加载dll
+	//在打开的子进程中分配内存
+	//LPVOID adrRemote = VirtualAllocEx(prinfo.hProcess, 0, 0x3000, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+	//写入
+	//SIZE_T lwt;
+	//WriteProcessMemory(prinfo.hProcess, adrRemote, INJECTCode, 0x200, &lwt);
+
+
 	////恢复线程
-	ResumeThread(prinfo.hThread);
+	
+}
+
+
+//组织远程数据
+void CodeRemoteData()
+{
+
 }
