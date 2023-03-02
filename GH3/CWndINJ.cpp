@@ -271,8 +271,7 @@ void CWndINJ::OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
 
 	PROCESS_INFORMATION prinfo{};		//获取进程信息的结构体
 	m_INJECT.StartProcess(GameExe, GamePath, GameCmds.GetBuffer(), &prinfo);
-	_REMOTE_DATA _data{};
-	m_INJECT.CodeRemoteData(_data);
+	m_INJECT.CreateRemoteData(prinfo.hProcess, L"D:\\coding_workspace\\vs2022\\GH3\\Debug\\Dlls.dll");
 	ResumeThread(prinfo.hThread);	
 	/*
 	STARTUPINFO si{};					//获取进程信息的结构体
@@ -325,9 +324,3 @@ void CWndINJ::OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
 	
 }
 
-
-//组织远程数据
-void CodeRemoteData()
-{
-
-}

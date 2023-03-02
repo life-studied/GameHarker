@@ -4,7 +4,7 @@
 
 void _stdcall INJECTCode()
 {
-	unsigned address = 0xCCCCCCCC;
+	unsigned address = 0xCCCCCCCC;				//创建一个指针指向LoadLibrary的dll，此处的0xCCCCCCC只是一个象征，被编译后的字节码会再次进行替换
 	PREMOTE_DATA p = (PREMOTE_DATA)address;
 	p->f_LoadLibrary(p->dllName);
 }
@@ -52,11 +52,26 @@ BOOL INJECT::CreateRemoteData(HANDLE hProcess, const wchar_t* dllName)
 	SIZE_T lwt;
 	LPVOID adrRemoteData = LPVOID((unsigned)adrRemote + 0x2000);
 	_REMOTE_DATA remoteData{};
-
-	WriteProcessMemory(hProcess, adrRemote, INJECTCode, 0x200, &lwt);
-
 	CodeRemoteData(&remoteData, dllName);
 	WriteProcessMemory(hProcess, adrRemoteData, &remoteData, sizeof(remoteData), &lwt);
+	
+	//修正远程代码
+	char _code[0x200];
+	memcpy(_code, INJECTCode, sizeof(_code));
+	for (int i = 0; i < 0x100; i++)			//
+	{
+		unsigned* pcode = (unsigned*)(&_code[i]);
+		if (pcode[0] == 0xCCCCCCCC)
+		{
+			pcode[0] = (unsigned)adrRemoteData;
+			break;
+		}
+	}
+
+	WriteProcessMemory(hProcess, adrRemote, _code, 0x200, &lwt);
+	DWORD dwThreadId;
+	HANDLE remoteHd1 = CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)adrRemote, NULL, 0, &dwThreadId);
+	WaitForSingleObject(remoteHd1, INFINITE);
 	return 0;
 }
 
