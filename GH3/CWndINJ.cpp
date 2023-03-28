@@ -271,7 +271,17 @@ void CWndINJ::OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
 
 	PROCESS_INFORMATION prinfo{};		//获取进程信息的结构体
 	m_INJECT.StartProcess(GameExe, GamePath, GameCmds.GetBuffer(), &prinfo);
-	m_INJECT.CreateRemoteData(prinfo.hProcess, L"D:\\coding_workspace\\vs2022\\GH3\\Debug\\Dlls.dll");
+	
+	PROCESS_INFORMATION odinfo{};		//获取进程信息的结构体
+	CString dbgExe, dbgPath, dbgCmds;
+	dbgExe = L"D:\\x64dbg\\release\\x32\\x32dbg.exe";
+	dbgPath = L"D:\\x64dbg\\release\\x32\\";
+	dbgCmds.Format(L"%s -p %d", dbgExe, prinfo.dwProcessId);
+	m_INJECT.StartProcess(dbgExe,dbgPath,dbgCmds.GetBuffer(),&odinfo,false);
+	
+	m_INJECT.CreateRemoteData(prinfo.hProcess, GameExe, L"D:\\coding_workspace\\vs2022\\GH3\\Debug\\Dlls.dll");
+
+	
 	ResumeThread(prinfo.hThread);	
 	/*
 	STARTUPINFO si{};					//获取进程信息的结构体

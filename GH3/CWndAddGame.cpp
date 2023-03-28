@@ -52,6 +52,7 @@ END_MESSAGE_MAP()
 void CWndAddGame::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	UpdateData(TRUE);
 	TCHAR szFilters[] = _T("exe (*.exe)|*.exe|dat (*.dat)|*.dat|All Files (*.*)|*.*||");
 	CFileDialog dialog(
 		TRUE,		//TRUE为打开，FALSE为另存为
@@ -74,6 +75,7 @@ void CWndAddGame::OnBnClickedButton1()
 void CWndAddGame::OnBnClickedButton2()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	UpdateData(TRUE);
 	TCHAR szFilters[] = _T("动态链接库 (*.dll)|*.dll|All Files (*.*)|*.*||");
 	CFileDialog dialog(
 		TRUE,		//TRUE为打开，FALSE为另存为
