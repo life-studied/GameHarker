@@ -103,9 +103,9 @@ BOOL INJECT::CreateRemoteData(HANDLE hProcess, const wchar_t* GameExe, const wch
 	CodeRemoteData(&remoteData, dllName);
 	WriteProcessMemory(hProcess, adrRemoteData, &remoteData, sizeof(remoteData), &lwt);
 	
-	CString wTxt;
-	wTxt.Format(L"%X", adrRemote);
-	AfxMessageBox(wTxt);
+	//CString wTxt;
+	//wTxt.Format(L"%X", adrRemote);
+	//AfxMessageBox(wTxt);
 	//修正远程代码
 	char _code[0x200];
 	memcpy(_code, INJECTCode, sizeof(_code));
@@ -152,9 +152,9 @@ void INJECT::CodeRemoteData(PREMOTE_DATA _data, const wchar_t* dllName)
 	_data->f_LoadLibrary = (_LoadLibrary)GetProcAddress(hKernel, "LoadLibraryW");
 	_data->f_GetModuleHandleA = (_GetModuleHandleA)GetProcAddress(hKernel, "GetModuleHandleA");
 	_data->f_VirtualProtect = (_VirtualProtect)GetProcAddress(hKernel, "VirtualProtect");
-	CString wTxt;
-	wTxt.Format(L"%X", _data->f_VirtualProtect);
-	AfxMessageBox(wTxt);
+	//CString wTxt;
+	//wTxt.Format(L"%X", _data->f_VirtualProtect);
+	//AfxMessageBox(wTxt);
 	memcpy(_data->dllName, dllName, (length + 1) * 2);		//wchar_t 2字节
 	/*CString wTxt;
 	wTxt.Format(L"%X", _data->f_LoadLibrary);
