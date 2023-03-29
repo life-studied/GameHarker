@@ -10,6 +10,7 @@
 #define IDD_PAGE_0                      130
 #define IDD_PAGE_1                      132
 #define IDD_ADDGAME                     134
+#define IDR_MENU1                       136
 #define IDC_TAB1                        1001
 #define IDC_LIST1                       1003
 #define IDC_BUTTON1                     1004
@@ -24,13 +25,15 @@
 #define IDC_EDIT5                       1010
 #define IDC_BUTTON3                     1011
 #define IDC_BUTTON4                     1012
+#define ID_32771                        32771
+#define ID_32772                        32772
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        136
-#define _APS_NEXT_COMMAND_VALUE         32771
+#define _APS_NEXT_RESOURCE_VALUE        137
+#define _APS_NEXT_COMMAND_VALUE         32773
 #define _APS_NEXT_CONTROL_VALUE         1012
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

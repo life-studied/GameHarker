@@ -69,6 +69,9 @@ BEGIN_MESSAGE_MAP(CWndINJ, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CWndINJ::OnBnClickedButton1)
 //	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST1, &CWndINJ::OnLvnItemchangedList1)
 ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &CWndINJ::OnNMDblclkList1)
+ON_NOTIFY(NM_RCLICK, IDC_LIST1, &CWndINJ::OnNMRClickList1)
+ON_COMMAND(ID_32771, &CWndINJ::OnMenuSet)
+ON_COMMAND(ID_32772, &CWndINJ::OnMenuDel)
 END_MESSAGE_MAP()
 
 
@@ -350,3 +353,34 @@ void CWndINJ::OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
 	
 }
 
+
+
+void CWndINJ::OnNMRClickList1(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMITEMACTIVATE pActive = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	*pResult = 0;
+	if (pActive->iItem != -1)
+	{
+		DWORD dwPos = GetMessagePos();
+		CPoint point(LOWORD(dwPos), HIWORD(dwPos));
+		CMenu menu;
+		menu.LoadMenuW(IDR_MENU1);
+		CMenu* pop = menu.GetSubMenu(0);
+		pop->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);
+	}
+}
+
+
+void CWndINJ::OnMenuSet()
+{
+	// TODO: 在此添加命令处理程序代码
+	AfxMessageBox(L"set");
+}
+
+
+void CWndINJ::OnMenuDel()
+{
+	// TODO: 在此添加命令处理程序代码
+	AfxMessageBox(L"Del");
+}
