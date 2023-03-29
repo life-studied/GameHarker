@@ -8,7 +8,7 @@
 #endif
 
 #include "resource.h"		// 主符号
-
+#include "CWndMain.h"
 
 // CDllsApp
 // 有关此类实现的信息，请参阅 Dlls.cpp
@@ -18,7 +18,7 @@ class CDllsApp : public CWinApp
 {
 public:
 	CDllsApp();
-
+	CWndMain* wndMain;
 // 重写
 public:
 	virtual BOOL InitInstance();

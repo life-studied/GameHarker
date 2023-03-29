@@ -52,7 +52,9 @@ CDllsApp::CDllsApp()
 // 唯一的 CDllsApp 对象
 
 CDllsApp theApp;
-
+CDllsApp* PtheApp;
+HHOOK keyHook;
+LRESULT CALLBACK KeyCallBack(int nCode, WPARAM w, LPARAM l);
 
 // CDllsApp 初始化
 
@@ -60,7 +62,30 @@ BOOL CDllsApp::InitInstance()
 {
 	CWinApp::InitInstance();
 	//初始化
+	PtheApp = this;
+	keyHook = SetWindowsHook(WH_KEYBOARD, KeyCallBack);
 
-	AfxMessageBox(L"注入成功");
 	return TRUE;
+}
+
+LRESULT CALLBACK KeyCallBack(int nCode, WPARAM w, LPARAM l)
+{
+	if ((l & (1 << 31)) == 0)
+	{
+		switch (w)
+		{
+		case VK_HOME:
+			if (PtheApp->wndMain == NULL)
+			{
+				PtheApp->wndMain = new CWndMain();
+				PtheApp->wndMain->Create(IDD_WNDMAIN);
+			}
+			PtheApp->wndMain->ShowWindow(TRUE);
+			break;
+
+		default:
+			break;
+		}
+	}
+	return CallNextHookEx(keyHook, nCode, w, l);
 }

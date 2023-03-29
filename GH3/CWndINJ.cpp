@@ -267,19 +267,35 @@ void CWndINJ::OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
 	CString GameExe = ExeLst.GetItemText(index, 1);
 	CString GameCmds = ExeLst.GetItemText(index, 3);
 	CString GameDlls = ExeLst.GetItemText(index, 4);
-
-
+	UpdateData(TRUE);
 	PROCESS_INFORMATION prinfo{};		//获取进程信息的结构体
-	m_INJECT.StartProcess(GameExe, GamePath, GameCmds.GetBuffer(), &prinfo);
+	bool Pause = B_PAUSE;
 	
-	PROCESS_INFORMATION odinfo{};		//获取进程信息的结构体
-	CString dbgExe, dbgPath, dbgCmds;
-	dbgExe = L"D:\\x64dbg\\release\\x32\\x32dbg.exe";
-	dbgPath = L"D:\\x64dbg\\release\\x32\\";
-	dbgCmds.Format(L"%s -p %d", dbgExe, prinfo.dwProcessId);
-	m_INJECT.StartProcess(dbgExe,dbgPath,dbgCmds.GetBuffer(),&odinfo,false);
+	if ((B_INJECT) && (GameDlls.GetLength() > 1))
+	{
+		Pause = true;
+	}
+	m_INJECT.StartProcess(GameExe, GamePath, GameCmds.GetBuffer(), &prinfo, Pause);
+	if ((B_INJECT) && (GameDlls.GetLength() > 1))
+	{
+		m_INJECT.CreateRemoteData(prinfo.hProcess, GameExe,GameDlls);
+	}
+
+	if (B_DEBUG)
+	{
+		PROCESS_INFORMATION odinfo{};		//获取进程信息的结构体
+		CString dbgExe, dbgPath, dbgCmds;
+		dbgExe = L"D:\\x64dbg\\release\\x32\\x32dbg.exe";
+		dbgPath = L"D:\\x64dbg\\release\\x32\\";
+		dbgCmds.Format(L"%s -p %d", dbgExe, prinfo.dwProcessId);
+		m_INJECT.StartProcess(dbgExe, dbgPath, dbgCmds.GetBuffer(), &odinfo, false);
+	}
 	
-	m_INJECT.CreateRemoteData(prinfo.hProcess, GameExe, L"D:\\coding_workspace\\vs2022\\GH3\\Debug\\Dlls.dll");
+	if (B_PAUSE)
+	{
+		AfxMessageBox(L"点击确定恢复运行！");
+	}
+	
 
 	
 	ResumeThread(prinfo.hThread);	
