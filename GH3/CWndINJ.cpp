@@ -159,6 +159,25 @@ void CWndINJ::AddGame(CString& _GameName, CString& _GameExe, CString& _GamePath,
 	ExeLst.SetItemText(icount, 4, _dlls);
 }
 
+void CWndINJ::SaveGame(CString& _GameName, CString& _GameExe, CString& _GamePath, CString& _GameCmds, CString& _dlls, int index)
+{
+	CString key;
+	key.Format(L"count_%d", index);
+
+	//写入到配置文件中，与上述一致
+	WritePrivateProfileStringW(key, L"GameName", _GameName, GamesIni);
+	WritePrivateProfileStringW(key, L"GameExe", _GameExe, GamesIni);
+	WritePrivateProfileStringW(key, L"GamePath", _GamePath, GamesIni);
+	WritePrivateProfileStringW(key, L"GameCmds", _GameCmds, GamesIni);
+	WritePrivateProfileStringW(key, L"GameDlls", _dlls, GamesIni);
+
+	ExeLst.SetItemText(index, 0,_GameName);			//申请一行并插入第0列
+	ExeLst.SetItemText(index, 1, _GameExe);			//插入第i行的第1列
+	ExeLst.SetItemText(index, 2, _GamePath);
+	ExeLst.SetItemText(index, 3, _GameCmds);
+	ExeLst.SetItemText(index, 4, _dlls);
+}
+
 void CWndINJ::LoadGames()
 {
 	//读取配置数目
@@ -362,6 +381,7 @@ void CWndINJ::OnNMRClickList1(NMHDR* pNMHDR, LRESULT* pResult)
 	*pResult = 0;
 	if (pActive->iItem != -1)
 	{
+		lstSel = pActive->iItem;
 		DWORD dwPos = GetMessagePos();
 		CPoint point(LOWORD(dwPos), HIWORD(dwPos));
 		CMenu menu;
@@ -375,12 +395,50 @@ void CWndINJ::OnNMRClickList1(NMHDR* pNMHDR, LRESULT* pResult)
 void CWndINJ::OnMenuSet()
 {
 	// TODO: 在此添加命令处理程序代码
-	AfxMessageBox(L"set");
+	//AfxMessageBox(L"set");
+	CString GameName= ExeLst.GetItemText(lstSel, 0);
+	CString GamePath = ExeLst.GetItemText(lstSel, 2);
+	CString GameExe = ExeLst.GetItemText(lstSel, 1);
+	CString GameCmds = ExeLst.GetItemText(lstSel, 3);
+	CString GameDlls = ExeLst.GetItemText(lstSel, 4);
+
+	wndAddGame.Init(this, false, lstSel);
+	wndAddGame.SetData(GameName, GamePath, GameExe, GameCmds, GameDlls);
+	wndAddGame.DoModal();
 }
 
 
 void CWndINJ::OnMenuDel()
 {
 	// TODO: 在此添加命令处理程序代码
-	AfxMessageBox(L"Del");
+	//AfxMessageBox(L"Del");
+	ExeLst.DeleteItem(lstSel);
+	SaveLstToIni();
+}
+
+void CWndINJ::SaveLstToIni()
+{
+	int count = ExeLst.GetItemCount();
+	for (int i = 0; i < count; i++)
+	{
+		CString GameName = ExeLst.GetItemText(i, 0);
+		CString GamePath = ExeLst.GetItemText(i, 2);
+		CString GameExe = ExeLst.GetItemText(i, 1);
+		CString GameCmds = ExeLst.GetItemText(i, 3);
+		CString GameDlls = ExeLst.GetItemText(i, 4);
+
+		CString key;
+		key.Format(L"count_%d", i);
+
+		//写入到配置文件中，与上述一致
+		WritePrivateProfileStringW(key, L"GameName", GameName, GamesIni);
+		WritePrivateProfileStringW(key, L"GameExe", GameExe, GamesIni);
+		WritePrivateProfileStringW(key, L"GamePath", GamePath, GamesIni);
+		WritePrivateProfileStringW(key, L"GameCmds", GameCmds, GamesIni);
+		WritePrivateProfileStringW(key, L"GameDlls", GameDlls, GamesIni);
+	}
+	CString wCount;
+	wCount.Format(L"%d", count);
+	WritePrivateProfileStringW(L"main", L"count", wCount, GamesIni);
+
 }

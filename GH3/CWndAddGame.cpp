@@ -98,9 +98,21 @@ void CWndAddGame::OnBnClickedButton4()
 	CDialog::OnCancel();
 }
 
-void CWndAddGame::Init(void* _father)
+void CWndAddGame::Init(void* _father,bool Create,int _index)
 {
 	father = _father;
+	isCreate = Create;
+	index = _index;
+}
+
+void CWndAddGame::SetData(CString& _GameName, CString& _GamePath, CString& _GameExe, CString& _GameCmds, CString& _DllPath)
+{
+	GameName = _GameName;
+	GameFullPath = _GameExe;
+	GamePath = _GamePath;
+	GameCmds = _GameCmds;
+	DllPath = _DllPath;
+
 }
 
 
@@ -109,6 +121,15 @@ void CWndAddGame::OnBnClickedButton3()
 	//保存数据
 	CWndINJ* p = (CWndINJ*)father;
 	UpdateData(TRUE);
-	p->AddGame(GameName, GameFullPath, GamePath, GameCmds, DllPath);
+	if (isCreate)
+	{
+		p->AddGame(GameName, GameFullPath, GamePath, GameCmds, DllPath);
+		
+	}
+	else
+	{
+		p->SaveGame(GameName, GameFullPath, GamePath, GameCmds, DllPath, index);   
+	}
+
 	CDialog::OnCancel();
 }

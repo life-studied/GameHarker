@@ -49,9 +49,20 @@ public:
 		CString& _GameCmds,
 		CString& _dlls);
 
+	void SaveGame(
+		CString& _GameName,
+		CString& _GameExe,
+		CString& _GamePath,
+		CString& _GameCmds,
+		CString& _dlls,
+		int index);
+
 	void LoadGames();		//从配置文件加载游戏到列表
 	afx_msg void OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnNMRClickList1(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnMenuSet();
 	afx_msg void OnMenuDel();
+
+	int lstSel;
+	void SaveLstToIni();	
 };

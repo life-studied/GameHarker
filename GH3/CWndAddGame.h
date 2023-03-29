@@ -33,6 +33,14 @@ public:
 
 public:
 	void* father;
-	void Init(void* _father);
+	bool isCreate;
+	int index;
+	void Init(void* _father, bool Create = true,int _index = 0);
+	void SetData(
+		CString& _GameName,
+		CString& _GamePath,
+		CString& _GameExe,
+		CString& _GameCmds,
+		CString& _DllPath);
 	afx_msg void OnBnClickedButton3();
 };
