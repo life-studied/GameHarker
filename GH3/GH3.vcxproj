@@ -192,6 +192,7 @@
     <ClInclude Include="CWndAddGame.h" />
     <ClInclude Include="CWndINC.h" />
     <ClInclude Include="CWndINJ.h" />
+    <ClInclude Include="CWndProcess.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GH3.h" />
     <ClInclude Include="GH3Dlg.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="CWndAddGame.cpp" />
     <ClCompile Include="CWndINC.cpp" />
     <ClCompile Include="CWndINJ.cpp" />
+    <ClCompile Include="CWndProcess.cpp" />
     <ClCompile Include="GH3.cpp" />
     <ClCompile Include="GH3Dlg.cpp" />
     <ClCompile Include="INJECT.cpp" />
@@ -222,6 +224,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\GH3.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

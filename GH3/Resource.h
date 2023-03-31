@@ -11,6 +11,7 @@
 #define IDD_PAGE_1                      132
 #define IDD_ADDGAME                     134
 #define IDR_MENU1                       136
+#define IDD_PROCESS_LST                 137
 #define IDC_TAB1                        1001
 #define IDC_LIST1                       1003
 #define IDC_BUTTON1                     1004
@@ -21,10 +22,12 @@
 #define IDC_CHECK3                      1007
 #define IDC_EDIT2                       1007
 #define IDC_EDIT3                       1008
+#define IDC_BUTTON5                     1008
 #define IDC_EDIT4                       1009
 #define IDC_EDIT5                       1010
 #define IDC_BUTTON3                     1011
 #define IDC_BUTTON4                     1012
+#define IDC_LIST2                       1012
 #define ID_32771                        32771
 #define ID_32772                        32772
 
@@ -32,9 +35,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        137
+#define _APS_NEXT_RESOURCE_VALUE        139
 #define _APS_NEXT_COMMAND_VALUE         32773
-#define _APS_NEXT_CONTROL_VALUE         1012
+#define _APS_NEXT_CONTROL_VALUE         1013
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

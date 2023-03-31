@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\INJECT">
+      <UniqueIdentifier>{30ca0c98-86bf-4ab1-b4ef-b813cdbd79e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\INJECT">
+      <UniqueIdentifier>{9207db50-bf55-48c3-8fb4-79adb8577d1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\INJECTCHECK">
+      <UniqueIdentifier>{80af93dc-66d4-4456-bd4b-45339fe2e874}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\INJECTCHECK">
+      <UniqueIdentifier>{99e321a4-a98b-434b-abc1-bb944c538f4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GH3.h">
@@ -34,16 +46,19 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CWndINJ.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CWndINC.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\INJECT</Filter>
     </ClInclude>
     <ClInclude Include="CWndAddGame.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\INJECT</Filter>
     </ClInclude>
     <ClInclude Include="INJECT.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\INJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="CWndINC.h">
+      <Filter>头文件\INJECTCHECK</Filter>
+    </ClInclude>
+    <ClInclude Include="CWndProcess.h">
+      <Filter>头文件\INJECTCHECK</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -56,17 +71,20 @@
     <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CWndINJ.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CWndINC.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="CWndAddGame.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\INJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="CWndINJ.cpp">
+      <Filter>源文件\INJECT</Filter>
     </ClCompile>
     <ClCompile Include="INJECT.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\INJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="CWndINC.cpp">
+      <Filter>源文件\INJECTCHECK</Filter>
+    </ClCompile>
+    <ClCompile Include="CWndProcess.cpp">
+      <Filter>源文件\INJECTCHECK</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,5 +101,8 @@
     <Image Include="res\GH3.ico">
       <Filter>资源文件</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Version.txt" />
   </ItemGroup>
 </Project>
