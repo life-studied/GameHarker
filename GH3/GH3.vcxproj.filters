@@ -60,6 +60,9 @@
     <ClInclude Include="CWndProcess.h">
       <Filter>头文件\INJECTCHECK</Filter>
     </ClInclude>
+    <ClInclude Include="CWndModuleList.h">
+      <Filter>头文件\INJECTCHECK</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GH3.cpp">
@@ -84,6 +87,9 @@
       <Filter>源文件\INJECTCHECK</Filter>
     </ClCompile>
     <ClCompile Include="CWndProcess.cpp">
+      <Filter>源文件\INJECTCHECK</Filter>
+    </ClCompile>
+    <ClCompile Include="CWndModuleList.cpp">
       <Filter>源文件\INJECTCHECK</Filter>
     </ClCompile>
   </ItemGroup>

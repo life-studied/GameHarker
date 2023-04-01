@@ -1,7 +1,9 @@
 ﻿#pragma once
 #include "afxdialogex.h"
 #include "CWndProcess.h"
+#include "CWndModuleList.h"
 
+#define MAX_PAGES 2
 // CWndINC 对话框
 
 class CWndINC : public CDialogEx
@@ -34,4 +36,10 @@ public:
 	void SetProcess(unsigned Pid,CString& wExe, BOOL bFirst = FALSE);
 	CString UExe;
 	CString UExeRoot;
+	CTabCtrl mTab;
+	
+	int CurPage{};
+	CWndModuleList modPage[MAX_PAGES];
+	CDialogEx* Page[MAX_PAGES];
+	bool InstallPage(CDialogEx* wnd, int IDD_Wnd, CString&& _Name, bool isShow);
 };

@@ -192,6 +192,7 @@
     <ClInclude Include="CWndAddGame.h" />
     <ClInclude Include="CWndINC.h" />
     <ClInclude Include="CWndINJ.h" />
+    <ClInclude Include="CWndModuleList.h" />
     <ClInclude Include="CWndProcess.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GH3.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="CWndAddGame.cpp" />
     <ClCompile Include="CWndINC.cpp" />
     <ClCompile Include="CWndINJ.cpp" />
+    <ClCompile Include="CWndModuleList.cpp" />
     <ClCompile Include="CWndProcess.cpp" />
     <ClCompile Include="GH3.cpp" />
     <ClCompile Include="GH3Dlg.cpp" />
