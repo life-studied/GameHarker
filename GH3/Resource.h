@@ -14,6 +14,7 @@
 #define IDD_PROCESS_LST                 137
 #define IDD_MOD                         139
 #define IDD_MOD_LIST                    139
+#define IDD_MOD_ANLY                    141
 #define IDC_TAB1                        1001
 #define IDC_LIST1                       1003
 #define IDC_BUTTON1                     1004
@@ -37,7 +38,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        141
+#define _APS_NEXT_RESOURCE_VALUE        143
 #define _APS_NEXT_COMMAND_VALUE         32773
 #define _APS_NEXT_CONTROL_VALUE         1013
 #define _APS_NEXT_SYMED_VALUE           101

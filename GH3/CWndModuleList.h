@@ -23,4 +23,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CListCtrl LstModule;
+
+	void GetModList(DWORD Pid);
 };

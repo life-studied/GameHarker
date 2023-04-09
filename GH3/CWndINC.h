@@ -2,8 +2,8 @@
 #include "afxdialogex.h"
 #include "CWndProcess.h"
 #include "CWndModuleList.h"
-
-#define MAX_PAGES 2
+#include "CWndModAnly.h"
+#define MAX_PAGES 3
 // CWndINC 对话框
 
 class CWndINC : public CDialogEx
@@ -33,13 +33,17 @@ public:
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButton2();
 
-	void SetProcess(unsigned Pid,CString& wExe, BOOL bFirst = FALSE);
+	void SetProcess(unsigned Pid,CString& wExe, bool bFirst = false);
 	CString UExe;
 	CString UExeRoot;
 	CTabCtrl mTab;
 	
 	int CurPage{};
-	CWndModuleList modPage[MAX_PAGES];
+	CWndModuleList modPage[2];
+	CWndModAnly modAnly;
 	CDialogEx* Page[MAX_PAGES];
 	bool InstallPage(CDialogEx* wnd, int IDD_Wnd, CString&& _Name, bool isShow);
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnTcnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnBnClickedButton5();
 };

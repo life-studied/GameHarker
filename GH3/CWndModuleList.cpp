@@ -5,6 +5,7 @@
 #include "GH3.h"
 #include "afxdialogex.h"
 #include "CWndModuleList.h"
+#include <TlHelp32.h>
 
 
 // CWndModuleList 对话框
@@ -49,6 +50,30 @@ BOOL CWndModuleList::OnInitDialog()
 	LstModule.InsertColumn(3, L"文件位置", 0, 200);
 
 	return TRUE;
+}
+
+void CWndModuleList::GetModList(DWORD Pid)
+{
+	LstModule.DeleteAllItems();
+	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, Pid);
+	if (hSnap != INVALID_HANDLE_VALUE)
+	{
+		MODULEENTRY32 modl{ sizeof(MODULEENTRY32) };
+		BOOL BMORE = Module32First(hSnap, &modl);
+		while (BMORE)
+		{
+			CString txt;
+			txt.Format(L"%X", modl.hModule);
+			LstModule.InsertItem(0, modl.szModule);
+			LstModule.SetItemText(0, 1, txt);
+			txt.Format(L"%X", modl.modBaseSize);
+			LstModule.SetItemText(0, 2, txt);
+			txt.Format(L"%s", modl.szExePath);
+			LstModule.SetItemText(0, 3, txt);
+			BMORE = Module32Next(hSnap, &modl);
+		}
+	}
+	CloseHandle(hSnap);
 }
 
 
