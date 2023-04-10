@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "afxdialogex.h"
-
+#include "PEBInfo.h"
 
 // CWndMain 对话框
 
@@ -21,4 +21,10 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedButton1();
+
+public:
+	PEBInfo Myinfo;
+	bool isAnly;
 };

@@ -24,6 +24,9 @@
     <ClCompile Include="CWndMain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="PEBInfo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Dlls.def">
@@ -50,6 +53,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CWndMain.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PEBInfo.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

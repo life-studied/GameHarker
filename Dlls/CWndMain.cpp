@@ -12,7 +12,7 @@
 IMPLEMENT_DYNAMIC(CWndMain, CDialogEx)
 
 CWndMain::CWndMain(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_WNDMAIN, pParent)
+	: CDialogEx(IDD_WNDMAIN, pParent), isAnly(false)
 {
 
 }
@@ -28,7 +28,21 @@ void CWndMain::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CWndMain, CDialogEx)
+	ON_BN_CLICKED(IDC_BUTTON1, &CWndMain::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
 // CWndMain 消息处理程序
+
+
+void CWndMain::OnBnClickedButton1()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	if (!isAnly)
+	{
+		Myinfo.GetInfo();
+		Myinfo.HidInfo(L"Dlls.dll");
+		isAnly = true;
+	}
+	
+}
